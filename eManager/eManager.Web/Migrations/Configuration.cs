@@ -16,10 +16,10 @@ namespace eManager.Web.Migrations
         protected override void Seed(eManager.Web.Infrastructure.DepartmentDb context)
         {
             context.Departments.AddOrUpdate(d => d.Name,
-                     new Department() { Name = "Engineering" },
-                     new Department() { Name = "Sales" },
-                     new Department() { Name = "Shipping" },
-                     new Department() { Name = "Human Resources" }
+                new Department() { Name = "Engineering" },
+                new Department() { Name = "Sales" },
+                new Department() { Name = "Shipping" },
+                new Department() { Name = "Human Resources" }
             );
         }
     }

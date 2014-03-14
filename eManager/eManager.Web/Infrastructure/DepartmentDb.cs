@@ -7,17 +7,13 @@ using eManager.Domain;
 
 namespace eManager.Web.Infrastructure
 {
-    public class DepartmentDb : DbContext, IDepartmentDataSource 
+    public class DepartmentDb : DbContext, IDepartmentDataSource
     {
-        public DepartmentDb() : base("DefaultConnection")
-        {
-            // do something
-        }
+
+        public DepartmentDb() : base("DefaultConnection") { } 
 
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Department> Departments { get; set; }
-
-
 
         IQueryable<Employee> IDepartmentDataSource.Employees
         {
@@ -28,5 +24,5 @@ namespace eManager.Web.Infrastructure
         {
             get { return Departments; }
         }
-    }   
+    }
 }

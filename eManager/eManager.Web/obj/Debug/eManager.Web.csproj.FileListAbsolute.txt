@@ -98,3 +98,10 @@ C:\Users\jgallegos\Repos\MVC4\eManager\eManager.Web\obj\Debug\eManager.Web.dll
 C:\Users\jgallegos\Repos\MVC4\eManager\eManager.Web\obj\Debug\eManager.Web.pdb
 C:\Users\jgallegos\Repos\MVC4\eManager\eManager.Web\bin\eManager.Domain.dll
 C:\Users\jgallegos\Repos\MVC4\eManager\eManager.Web\bin\eManager.Domain.pdb
+C:\Users\jgallegos\Repos\MVC4\eManager\eManager.Web\bin\Microsoft.Practices.ServiceLocation.dll
+C:\Users\jgallegos\Repos\MVC4\eManager\eManager.Web\bin\StructureMap.dll
+C:\Users\jgallegos\Repos\MVC4\eManager\eManager.Web\bin\WebActivator.dll
+C:\Users\jgallegos\Repos\MVC4\eManager\eManager.Web\bin\Microsoft.Practices.ServiceLocation.pdb
+C:\Users\jgallegos\Repos\MVC4\eManager\eManager.Web\bin\Microsoft.Practices.ServiceLocation.xml
+C:\Users\jgallegos\Repos\MVC4\eManager\eManager.Web\bin\StructureMap.pdb
+C:\Users\jgallegos\Repos\MVC4\eManager\eManager.Web\bin\StructureMap.xml

@@ -1,0 +1,42 @@
+﻿@model eManager.Domain.Department
+
+@{
+    ViewBag.Title = "Detail";
+}
+
+<h2>@Model.Name</h2>
+
+<!-- <fieldset>
+    <legend>Department Detail</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+</fieldset> -->
+
+@Html.ActionLink("Add an employee", "Create", "Employee", new { DepartmentId = @Model.Id }, null)
+
+<p>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Id</th>
+            <th>Date Hired</th>
+        </tr>
+        @foreach (var employee in Model.Employees)
+        {
+             <tr>
+                <td>@employee.Name</td>
+                <td>@employee.Id</td>
+                <td>@employee.HireDate</td>
+            </tr>
+         }
+    </table>
+</p>
+
+<p style="font-size:12px">
+    @Html.ActionLink("Back to All Departments", "Departments", "Data")
+</p>

@@ -2,3 +2,4 @@ C:\Users\jgallegos\Repos\MVC4\eManager\eManager.Domain\bin\Debug\eManager.Domain
 C:\Users\jgallegos\Repos\MVC4\eManager\eManager.Domain\bin\Debug\eManager.Domain.pdb
 C:\Users\jgallegos\Repos\MVC4\eManager\eManager.Domain\obj\Debug\eManager.Domain.dll
 C:\Users\jgallegos\Repos\MVC4\eManager\eManager.Domain\obj\Debug\eManager.Domain.pdb
+C:\Users\jgallegos\Repos\MVC4\eManager\eManager.Domain\obj\Debug\eManager.Domain.csprojResolveAssemblyReference.cache

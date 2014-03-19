@@ -40,10 +40,36 @@ namespace eManager.Web.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Delete(int id)
+        [HttpGet]
+        public ActionResult Detail(int id)
         {
-            return View();
+            var Employee = _db.Employees.Single(e => e.Id == id);
+            return View(Employee);
         }
 
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            var Employee = _db.Employees.Single(e => e.Id == id);
+
+            if (Employee == null)
+            {
+                return HttpNotFound();
+            }
+            return View(Employee);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Employee employee)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.EntryChanged(employee);
+                _db.Save();
+                return RedirectToAction("Detail", new { id = employee.Id });
+            }
+            return View(employee);
+        }
     }
 }

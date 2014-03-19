@@ -12,5 +12,6 @@ namespace eManager.Domain
         IQueryable<Department> Departments { get; }
 
         void Save();
+        void EntryChanged(Employee obj);
     }
 }

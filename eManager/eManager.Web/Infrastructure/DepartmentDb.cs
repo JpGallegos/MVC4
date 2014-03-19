@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using eManager.Domain;
 
 namespace eManager.Web.Infrastructure
@@ -20,6 +21,11 @@ namespace eManager.Web.Infrastructure
             SaveChanges();
         }
 
+        void IDepartmentDataSource.EntryChanged(Employee obj)
+        {
+            Entry(obj).State = EntityState.Modified;
+        }
+
         IQueryable<Employee> IDepartmentDataSource.Employees
         {
             get { return Employees; }
@@ -29,5 +35,6 @@ namespace eManager.Web.Infrastructure
         {
             get { return Departments; }
         }
+
     }
 }

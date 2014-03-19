@@ -32,6 +32,10 @@
                 <td>@employee.Name</td>
                 <td>@employee.Id</td>
                 <td>@employee.HireDate</td>
+                 <td>
+                     @Html.ActionLink("Detail", "Detail", "Employee",  new { id = employee.Id}, null) | 
+                     @Html.ActionLink("Edit", "Edit", "Employee", new { id = employee.Id}, null) | 
+                 </td>
             </tr>
          }
     </table>

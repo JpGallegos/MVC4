@@ -1,45 +1,47 @@
 ﻿@model eManager.Domain.Department
+@using GridMvc.Html
 
 @{
     ViewBag.Title = "Detail";
+    
 }
 
 <h2>@Model.Name</h2>
 
-<!-- <fieldset>
-    <legend>Department Detail</legend>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Name)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Name)
-    </div>
-</fieldset> -->
-
 @Html.ActionLink("Add an employee", "Create", "Employee", new { DepartmentId = @Model.Id }, null)
 
-<p>
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Id</th>
-            <th>Date Hired</th>
-        </tr>
-        @foreach (var employee in Model.Employees)
-        {
-             <tr>
-                <td>@employee.Name</td>
-                <td>@employee.Id</td>
-                <td>@employee.HireDate</td>
-                 <td>
-                     @Html.ActionLink("Detail", "Detail", "Employee",  new { id = employee.Id}, null) | 
-                     @Html.ActionLink("Edit", "Edit", "Employee", new { id = employee.Id}, null) | 
-                 </td>
-            </tr>
-         }
-    </table>
-</p>
+<hr />
+<div style="width:500px">
+    @Html.Grid(Model.Employees).Columns(columns =>
+            {
+                columns.Add(c => c.Name)
+                    .Titled("Name")
+                    .Sanitized(false)
+                    .Encoded(false)
+                    .Filterable(true)
+                    .RenderValueAs(c =>
+                        @<div>@c.Name
+                            <a href='@Url.Action("Detail", "Employee", new { id = c.Id })' class="btn btn-xs">
+                                <span class="glyphicon glyphicon-search" />
+                            </a>
+                        </div>);
+
+                columns.Add(c => c.HireDate)
+                    .Titled("Date Hired")
+                    .Format("{0:yyyy-MM-dd}")
+                    .Filterable(true);
+
+                columns.Add()
+                    .Sanitized(false)
+                    .Encoded(false)
+                    .RenderValueAs(c => 
+                        @<a href='@Url.Action("Edit", "Employee", new { id = c.Id })' class="btn btn-default btn-xs">
+                                <span class="glyphicon glyphicon-pencil" /> Edit
+                        </a>);
+                
+            }).WithPaging(1).Sortable(true)
+</div>
+
 
 <p style="font-size:12px">
     @Html.ActionLink("Back to All Departments", "Departments", "Data")

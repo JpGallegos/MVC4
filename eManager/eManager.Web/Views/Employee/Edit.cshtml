@@ -27,8 +27,8 @@
             @Html.LabelFor(model => model.HireDate)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.HireDate)
-            @Html.ValidationMessageFor(model => model.HireDate)
+            @Html.DisplayFor(model => model.HireDate ) <!--//, new { @*@class*@ = "datepicker"})-->
+            @*@Html.ValidationMessageFor(model => model.HireDate)*@
         </div>
 
         <p>
@@ -38,7 +38,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Detail", "Department", new { id = Model.Department.Id})
+    @Html.ActionLink("Back to List", "Detail", "Department", new { id = Model.Department.Id}, null)
 </div>
 
 @section Scripts {

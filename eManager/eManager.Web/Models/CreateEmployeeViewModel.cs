@@ -17,6 +17,7 @@ namespace eManager.Web.Models
 
         [Required]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime HireDate { get; set; }
     }
 }

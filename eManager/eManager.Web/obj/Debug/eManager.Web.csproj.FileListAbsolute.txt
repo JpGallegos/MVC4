@@ -105,3 +105,5 @@ C:\Users\jgallegos\Repos\MVC4\eManager\eManager.Web\bin\Microsoft.Practices.Serv
 C:\Users\jgallegos\Repos\MVC4\eManager\eManager.Web\bin\Microsoft.Practices.ServiceLocation.xml
 C:\Users\jgallegos\Repos\MVC4\eManager\eManager.Web\bin\StructureMap.pdb
 C:\Users\jgallegos\Repos\MVC4\eManager\eManager.Web\bin\StructureMap.xml
+C:\Users\jgallegos\Repos\MVC4\eManager\eManager.Web\bin\GridMvc.dll
+C:\Users\jgallegos\Repos\MVC4\eManager\eManager.Web\bin\Content\Gridmvc.css

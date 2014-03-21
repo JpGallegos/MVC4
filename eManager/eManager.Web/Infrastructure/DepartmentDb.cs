@@ -16,6 +16,11 @@ namespace eManager.Web.Infrastructure
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Department> Departments { get; set; }
 
+        public void RemoveEmployee(Employee e)
+        {
+            Employees.Remove(e);
+        }
+
         void IDepartmentDataSource.Save() 
         {
             SaveChanges();

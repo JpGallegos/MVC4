@@ -15,6 +15,7 @@ namespace eManager.Web.Controllers
         private IDepartmentDataSource _db = new DepartmentDb();
 
         [HttpGet]
+        [Authorize(Roles="Admin")]
         public ActionResult Create(int departmentId)
         {
             var model = new CreateEmployeeViewModel();
@@ -48,6 +49,7 @@ namespace eManager.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles="Admin")]
         public ActionResult Edit(int id)
         {
             var Employee = _db.Employees.Single(e => e.Id == id);
@@ -70,6 +72,30 @@ namespace eManager.Web.Controllers
                 return RedirectToAction("Detail", new { id = employee.Id });
             }
             return View(employee);
+        }
+
+        [HttpGet]
+        [Authorize(Roles="Admin")]
+        public ActionResult Delete(int id)
+        {
+            Employee employee = _db.Employees.Single(e => e.Id == id);
+            if (employee == null)
+            {
+                return HttpNotFound();
+            }
+            return View(employee);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Employee employee = _db.Employees.Single(e => e.Id == id);
+            var deptId = employee.Department.Id;
+
+            _db.RemoveEmployee(employee);
+            _db.Save();
+            return RedirectToAction("Detail", "Department", new { id = deptId});
         }
     }
 }

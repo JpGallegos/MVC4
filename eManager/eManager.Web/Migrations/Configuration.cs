@@ -1,3 +1,6 @@
+using System.Web.Security;
+using WebMatrix.WebData;
+
 namespace eManager.Web.Migrations
 {
     using System;
@@ -21,6 +24,30 @@ namespace eManager.Web.Migrations
                 new Department() { Name = "Shipping" },
                 new Department() { Name = "Human Resources" }
             );
+
+            SeedMembership();
+        }
+
+        private void SeedMembership()
+        {
+            WebSecurity.InitializeDatabaseConnection("DefaultConnection",
+                "UserProfile", "UserId", "UserName", autoCreateTables: true);
+
+            var roles = (SimpleRoleProvider)Roles.Provider;
+            var membership = (SimpleMembershipProvider)Membership.Provider;
+
+            if (!roles.RoleExists("Admin"))
+            {
+                roles.CreateRole("Admin");
+            }
+            if (membership.GetUser("jpgallegos", false) == null)
+            {
+                membership.CreateUserAndAccount("jpgallegos", "m4ng0p4ssw0rd!");
+            }
+            if (!roles.GetRolesForUser("jpgallegos").Contains("Admin"))
+            {
+                roles.AddUsersToRoles(new[] { "jpgallegos" }, new[] { "Admin" });
+            }
         }
     }
 }

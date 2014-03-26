@@ -20,6 +20,7 @@ namespace eManager.Web.Controllers
         {
             var model = new CreateEmployeeViewModel();
             model.DepartmentId = departmentId;
+            model.HireDate = DateTime.Today;
             return View(model);
         }
 

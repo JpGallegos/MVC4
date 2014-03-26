@@ -27,8 +27,8 @@
             @Html.LabelFor(model => model.HireDate)
         </div>
         <div class="editor-field">
-            @Html.DisplayFor(model => model.HireDate ) <!--//, new { @*@class*@ = "datepicker"})-->
-            @*@Html.ValidationMessageFor(model => model.HireDate)*@
+            @Html.DisplayFor(model => model.HireDate, new { @class = "datepicker"})
+            @Html.ValidationMessageFor(model => model.HireDate)
         </div>
 
         <p>

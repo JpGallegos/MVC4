@@ -1,4 +1,6 @@
 ﻿@model eManager.Web.Models.CreateEmployeeViewModel
+@Scripts.Render("~/bundles/jqueryui")
+@Scripts.Render("~/bundles/modernizr")
 
 @{
     ViewBag.Title = "Create";
@@ -29,7 +31,7 @@
             @Html.LabelFor(model => model.HireDate)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.HireDate)
+            @Html.EditorFor(model => model.HireDate, new { @Value = "mm/dd/yyyy"})
             @Html.ValidationMessageFor(model => model.HireDate)
         </div>
 
@@ -42,6 +44,16 @@
 <div>
     @Html.ActionLink("Back to List", "detail", "department", new { id = Model.DepartmentId }, null)
 </div>
+
+<script type="text/javascript">
+    $(function () {
+        if (!Modernizr.inputtypes.date) {
+            $(function () {
+                $('input[type=date]').datepicker();
+            })
+        }
+    })
+</script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

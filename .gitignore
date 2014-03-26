@@ -1,3 +1,7 @@
 .mdf
 .ldf
 MvcMovie/MvcMovie/App_Data/
+eManager/eManager.Web/App_Data/
+eManager/eManager.Web/bin/
+eManager/eManager.Web/obj/
+eManager/eManager.v11.suo

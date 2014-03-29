@@ -5,3 +5,6 @@ eManager/eManager.Web/App_Data/
 eManager/eManager.Web/bin/
 eManager/eManager.Web/obj/
 eManager/eManager.v11.suo
+eManager/eManager.Domain/bin/
+eManager/eManager.Domain/obj/
+eManager/eManager.Web/obj/Debug/

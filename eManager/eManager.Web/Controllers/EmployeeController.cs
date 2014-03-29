@@ -54,25 +54,31 @@ namespace eManager.Web.Controllers
         public ActionResult Edit(int id)
         {
             var Employee = _db.Employees.Single(e => e.Id == id);
-
+            
             if (Employee == null)
             {
                 return HttpNotFound();
             }
-            return View(Employee);
+            var EmployeeEdit = new EditEmployeeViewModel();
+            EmployeeEdit.Id = Employee.Id;
+            EmployeeEdit.Name = Employee.Name;
+            EmployeeEdit.HireDate = Employee.HireDate;
+            return PartialView("_EditEmployeePartial", EmployeeEdit);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Employee employee)
+        public ActionResult Edit(EditEmployeeViewModel employee)
         {
             if (ModelState.IsValid)
             {
-                _db.EntryChanged(employee);
+                var EmployeeToUpdate = _db.Employees.Single(e => e.Id == employee.Id);
+                EmployeeToUpdate.Name = employee.Name;
+                _db.EntryChanged(EmployeeToUpdate);
                 _db.Save();
-                return RedirectToAction("Detail", new { id = employee.Id });
+                return RedirectToAction("Detail", "Department", new { id = EmployeeToUpdate.Department.Id });
             }
-            return View(employee);
+            return PartialView("_EditEmployeePartial", employee);
         }
 
         [HttpGet]

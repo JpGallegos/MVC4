@@ -11,10 +11,9 @@
 @Html.ActionLink("Add an employee", "Create", "Employee", new { DepartmentId = @Model.Id }, null)
 
 <hr />
-
-<div class="modal fade" id="crud-modal">
+<div class="modal fade" id="employee-modal">
     <div class="modal-dialog">
-        <div id="crud-modal-container"></div>
+        <div id="employee-modal-container"></div>
     </div>
 </div>
 
@@ -55,11 +54,14 @@
             var url = "/Employee/Edit";
             var id = $(this).attr('data-id');
             $.get(url + '/' + id, function (data) {
-                $('#crud-modal-container').html(data);
-                $('#crud-modal').modal('show');
+                $('#employee-modal-container').html(data);
+                $('#employee-modal').modal('show');
             });
         });
+
+        
     });
+   
 </script>
 
 

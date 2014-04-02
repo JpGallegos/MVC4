@@ -12,7 +12,7 @@ namespace eManager.Web.Models
         [HiddenInput(DisplayValue=false)]
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage="Name is required.")]
         public string Name { get; set; }
 
         [DataType(DataType.Date)]

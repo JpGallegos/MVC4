@@ -51,14 +51,10 @@ namespace eManager.Web.Controllers
 
         [HttpGet]
         [Authorize(Roles="Admin")]
-        public ActionResult Edit(int id)
+        public PartialViewResult Edit(int id)
         {
             var Employee = _db.Employees.Single(e => e.Id == id);
             
-            if (Employee == null)
-            {
-                return HttpNotFound();
-            }
             var EmployeeEdit = new EditEmployeeViewModel();
             EmployeeEdit.Id = Employee.Id;
             EmployeeEdit.Name = Employee.Name;
@@ -68,7 +64,7 @@ namespace eManager.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(EditEmployeeViewModel employee)
+        public JsonResult Edit(EditEmployeeViewModel employee)
         {
             if (ModelState.IsValid)
             {
@@ -76,9 +72,9 @@ namespace eManager.Web.Controllers
                 EmployeeToUpdate.Name = employee.Name;
                 _db.EntryChanged(EmployeeToUpdate);
                 _db.Save();
-                return RedirectToAction("Detail", "Department", new { id = EmployeeToUpdate.Department.Id });
+                return Json(JsonResponseFactory.SuccessResponse(EmployeeToUpdate), JsonRequestBehavior.DenyGet);
             }
-            return PartialView("_EditEmployeePartial", employee);
+            return Json(JsonResponseFactory.ErrorResponse("Please review your form."), JsonRequestBehavior.DenyGet);
         }
 
         [HttpGet]

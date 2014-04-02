@@ -8,12 +8,12 @@
    @using (Ajax.BeginForm("Edit", "Employee", null, 
                            new AjaxOptions
                            {
-                                OnSuccess = "OnUpdateSuccess",
                                 HttpMethod = "POST"
                             }, new { @id = "EditEmployeeForm"}))
    { 
         @Html.AntiForgeryToken()
         <div class="modal-body">
+            <div class="error hidden" id="update-message"></div>
             <fieldset>
                 @Html.LabelFor(model => model.Name, new { @Class = "control-label" })
                 <div class="controls">
@@ -27,9 +27,10 @@
                 </div>
             </fieldset>
         </div>
-   }
+   
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="SaveBtn">Save Changes</button>
+        <button type="submit" class="btn btn-primary" id="SaveBtn">Save Changes</button>
      </div>
+   }
 </div>

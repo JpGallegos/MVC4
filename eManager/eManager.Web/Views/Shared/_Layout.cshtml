@@ -11,10 +11,13 @@
         @Styles.Render("~/Content/Gridmvc.css")
         @Scripts.Render("~/Scripts/jquery-2.1.0.min.js")
         @Scripts.Render("~/Scripts/gridmvc.min.js")
-        @Scripts.Render("~/Scripts/boostrap.min.js")
+        @*@Scripts.Render("~/Scripts/bootstrap.min.js")*@
         @Scripts.Render("~/bundles/modernizr")
         @Scripts.Render("~/bundles/jquery")
+        <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
         <script src="~/Scripts/bootstrap.min.js"></script>
+        <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     </head>
     <body>
         <header>

@@ -11,6 +11,13 @@
 @Html.ActionLink("Add an employee", "Create", "Employee", new { DepartmentId = @Model.Id }, null)
 
 <hr />
+
+<div class="modal fade" id="crud-modal">
+    <div class="modal-dialog">
+        <div id="crud-modal-container"></div>
+    </div>
+</div>
+
 <div style="width:500px">
     @Html.Grid(Model.Employees).Columns(columns =>
             {
@@ -21,7 +28,7 @@
                     .Filterable(true)
                     .RenderValueAs(c =>
                         @<div>@c.Name
-                            <a href='@Url.Action("Detail", "Employee", new { id = c.Id })' class="btn btn-xs">
+                            <a href="@Url.Action("Detail", "Employee", new { id = c.Id})" class="btn btn-xs">
                                 <span class="glyphicon glyphicon-search" />
                             </a>
                         </div>);
@@ -35,12 +42,25 @@
                     .Sanitized(false)
                     .Encoded(false)
                     .RenderValueAs(c => 
-                        @<a href='@Url.Action("Edit", "Employee", new { id = c.Id })' class="btn btn-default btn-xs">
+                        @<a class="btn btn-primary btn-xs edit-employee" data-id="@c.Id">
                                 <span class="glyphicon glyphicon-pencil" /> Edit
                         </a>);
                 
             }).WithPaging(3).Sortable(true)
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('.edit-employee').click(function () {
+            var url = "/Employee/Edit";
+            var id = $(this).attr('data-id');
+            $.get(url + '/' + id, function (data) {
+                $('#crud-modal-container').html(data);
+                $('#crud-modal').modal('show');
+            });
+        });
+    });
+</script>
 
 
 <p style="font-size:12px">

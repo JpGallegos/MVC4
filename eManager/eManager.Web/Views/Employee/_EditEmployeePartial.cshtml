@@ -33,4 +33,10 @@
         <button type="submit" class="btn btn-primary" id="SaveBtn">Save Changes</button>
      </div>
    }
+
+    <script>
+        $(document).ready(function () {
+            $.validator.unobtrusive.parse('#EditEmployeeForm');
+        });
+    </script>
 </div>

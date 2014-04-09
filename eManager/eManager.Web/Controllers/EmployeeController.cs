@@ -66,6 +66,7 @@ namespace eManager.Web.Controllers
         [ValidateAntiForgeryToken]
         public JsonResult Edit(EditEmployeeViewModel employee)
         {
+            ModelState.Clear();
             if (ModelState.IsValid)
             {
                 var EmployeeToUpdate = _db.Employees.Single(e => e.Id == employee.Id);

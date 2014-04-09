@@ -1,15 +1,12 @@
 ﻿@model eManager.Web.Models.EditEmployeeViewModel
 
+
 <div class="modal-content">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title" id="myModalLabel">@Model.Name</h4>
     </div>
-   @using (Ajax.BeginForm("Edit", "Employee", null, 
-                           new AjaxOptions
-                           {
-                                HttpMethod = "POST"
-                            }, new { @id = "EditEmployeeForm"}))
+   @using (Html.BeginForm("Edit", "Employee", FormMethod.Post, new { @id = "employee-edit-form"}))
    { 
         @Html.AntiForgeryToken()
         <div class="modal-body">
@@ -36,7 +33,19 @@
 
     <script>
         $(document).ready(function () {
-            $.validator.unobtrusive.parse('#EditEmployeeForm');
+            $.validator.unobtrusive.parse('#employee-edit-form');
+            //$('#employee-edit-form').focusout(function () {
+            //    $("#employee-edit-form").validate();
+            //});
+        });
+
+        
+        $("#employee-edit-form").focusout(function () {
+            $("#employee-edit-form").validate({
+                debug: true,
+                success: "valid"
+            });
         });
     </script>
+
 </div>

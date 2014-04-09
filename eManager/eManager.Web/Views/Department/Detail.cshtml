@@ -51,16 +51,11 @@
 <script>
     $(document).ready(function () {
         $('.edit-employee').click(function () {
-            var url = "/Employee/Edit";
             var id = $(this).attr('data-id');
-            $.get(url + '/' + id, function (data) {
-                $('#employee-modal-container').html(data);
-                $('#employee-modal').modal('show');
-            });
-        });
-
-        
-    });
+            $("#employee-modal-container").load("@Url.Action("Edit", "Employee")" + "/" + id);
+            $("#employee-modal").modal('show')
+        }); // $('.edit-employee').click() end
+    }); // $(document).ready() end
    
 </script>
 

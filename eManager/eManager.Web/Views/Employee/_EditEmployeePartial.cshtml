@@ -10,8 +10,9 @@
    { 
         @Html.AntiForgeryToken()
         <div class="modal-body">
-            <div class="error hidden" id="update-message"></div>
+            <div id="edit-fail"></div>
             <fieldset>
+                <legend>@Model</legend>
                 @Html.LabelFor(model => model.Name, new { @Class = "control-label" })
                 <div class="controls">
                     @Html.EditorFor(model => model.Name)
@@ -34,6 +35,25 @@
     <script>
         $(document).ready(function () {
             $.validator.unobtrusive.parse('#employee-edit-form');
+
+            $("#employee-edit-form").submit(function (e) {
+                if ($("#employee-edit-form").valid()) {
+                    $.ajax({
+                        url: this.action,
+                        type: this.method,
+                        data: $(this).serialize(),
+                        success: function (result) {
+                            if (result.Success) {
+                                $("#employee-modal").modal('hide');
+                                Bootstrap_alert.showAlert("<strong>Success!</strong> The employee was edited.", "alert-success", "#form-update", 5000);
+                            } 
+                        }
+                    });
+                } else {
+                    Bootstrap_alert.showAlert("<strong>Failed!</strong> Correct the errors before resubmitting.", "alert-danger", "#edit-fail", 5000);
+                }
+                return false;
+            });
         });
 
         $("#employee-edit-form").focusout(function () {     

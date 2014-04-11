@@ -73,7 +73,7 @@ namespace eManager.Web.Controllers
                 EmployeeToUpdate.Name = employee.Name;
                 _db.EntryChanged(EmployeeToUpdate);
                 _db.Save();
-                return Json(JsonResponseFactory.SuccessResponse(EmployeeToUpdate), JsonRequestBehavior.DenyGet);
+                return Json(JsonResponseFactory.SuccessResponse(), JsonRequestBehavior.DenyGet);
             }
             return Json(JsonResponseFactory.ErrorResponse("Please review your form."), JsonRequestBehavior.DenyGet);
         }

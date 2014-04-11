@@ -5,12 +5,20 @@
     ViewBag.Title = "Detail";
     
 }
+
 <div id="form-update"></div>
-
-<h2>@Model.Name</h2>
-
-@Html.ActionLink("Add an employee", "Create", "Employee", new { DepartmentId = @Model.Id }, null)
-
+<div class="page-header container">
+    <div class="row">
+        <div class="col-sm-2">
+            <h2>@Model.Name</h2>
+        </div>
+        <div class="col-sm-1" style="margin-top: 27px;">
+            <a class="btn btn-primary btn-xs create-employee" rel="tooltip" title="Add an employee" data-id="@Model.Id">
+                <span class="glyphicon glyphicon-plus"/>
+            </a>
+        </div>
+    </div>
+</div>
 <hr />
 
 
@@ -19,48 +27,72 @@
         <div id="employee-modal-container"></div>
     </div>
 </div>
-
-<div style="width:500px">
-    @Html.Grid(Model.Employees).Named("departmentDetailsGrid").Columns(columns =>
-            {
-                columns.Add(c => c.Name)
-                    .Titled("Name")
-                    .Sanitized(false)
-                    .Encoded(false)
-                    .Filterable(true)
-                    .RenderValueAs(c =>
-                        @<div>@c.Name
-                            <a href="@Url.Action("Detail", "Employee", new { id = c.Id})" class="btn btn-xs">
-                                <span class="glyphicon glyphicon-search" />
-                            </a>
-                        </div>);
-
-                columns.Add(c => c.HireDate)
-                    .Titled("Date Hired")
-                    .Format("{0:yyyy-MM-dd}")
-                    .Filterable(true);
-
-                columns.Add()
-                    .Sanitized(false)
-                    .Encoded(false)
-                    .RenderValueAs(c => 
-                        @<a class="btn btn-primary btn-xs edit-employee" data-id="@c.Id">
-                                <span class="glyphicon glyphicon-pencil" /> Edit
-                        </a>);
+<div class="container page-body">
+    <div class="row">
+        <div class="col-md-3 col-md-push-9">
+            <h4>Employee Details</h4>
+            <div id="Employee-content">
+                <p class="muted">Select employee to display detailed information.</p>
+            </div>
+        </div>
+        <div class="col-md-9 col-md-pull-3">
+        @Html.Grid(Model.Employees).Named("departmentDetailGrid").Columns(columns =>
+                {
+                    columns.Add(c => c.Id, true);
                 
-            }).WithPaging(3).Sortable(true)
+                    columns.Add(c => c.Name)
+                        .Titled("Name")
+                        .RenderValueAs(c => @c.Name);
+
+                    columns.Add(c => c.HireDate)
+                        .Titled("Date Hired")
+                        .Format("{0:yyyy-MM-dd}")
+                        .Filterable(true);
+
+                    columns.Add()
+                        .Sanitized(false)
+                        .Encoded(false)
+                        .RenderValueAs(c => 
+                            @<a class="btn btn-primary btn-xs edit-employee" data-id="@c.Id" rel="tooltip" title="Edit employee">
+                                    <span class="glyphicon glyphicon-pencil" />
+                            </a>);
+                
+                }).WithPaging(3).Sortable(true)
+        </div>
+    </div>
 </div>
+
+
+
 
 <script src="~/Scripts/jsHelpers.js"></script>
 <script src="@Url.Content("~/Scripts/gridmvc.min.js")" type="text/javascript"></script>
 <script>
     $(document).ready(function () {
+        $("[rel=tooltip]").tooltip({ placement: 'bottom'});
         $('.edit-employee').click(function () {
             var id = $(this).attr('data-id');
             $("#employee-modal-container").load("@Url.Action("Edit", "Employee")" + "/" + id);
             $("#employee-modal").modal('show')
         }); // $('.edit-employee').click() end
+
+        $(".create-employee").click(function () {
+            openModal(this, "#employee-modal", "#employee-modal-container", "Employee", "Create");
+            @*$("#employee-modal-container").load("@Url.Action("Create", "Employee")");
+            $("#employee-modal").modal('show')*@
+        }); // $('.create-employee').click() end
     }); // $(document).ready() end
+
+    function openModal(caller, modalName, modalContainer, controller, action) {
+        var id = $(caller).attr('data-id');
+        $(modalContainer).load("@Url.Action(" + action +"," + controller + ")" + "/" + id);
+        $(modalName).modal('show')
+    }
+    $(function () {
+        pageGrids.departmentDetailGrid.onRowSelect(function (e) {
+            $("#Employee-content").load("@Url.Action("Detail","Employee")" + "/" + e.row.Id);
+        });
+    });
 </script>
 
 

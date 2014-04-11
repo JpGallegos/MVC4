@@ -1,0 +1,22 @@
+﻿@model eManager.Domain.Employee
+
+<fieldset>
+    <dl>
+        <legend>Employee</legend>
+
+        <div class="display-label">
+            <dt>@Html.DisplayNameFor(model => model.Name)</dt>
+        </div>
+        <div class="display-field">
+            <dd>@Html.DisplayFor(model => model.Name)</dd>
+        </div>
+
+        <div class="display-label">
+            <dt>@Html.DisplayNameFor(model => model.HireDate)</dt>
+        </div>
+        <div class="display-field">
+            <dd>@Html.DisplayFor(model => model.HireDate)</dd>
+        </div>
+    </dl>
+</fieldset>
+

@@ -373,6 +373,8 @@
     <Content Include="Views\Employee\_EditEmployeePartial.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Employee\_DetailPartial.cshtml" />
+    <Content Include="Views\Employee\_CreatePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

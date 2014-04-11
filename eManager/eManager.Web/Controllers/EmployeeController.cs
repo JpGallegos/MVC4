@@ -21,6 +21,7 @@ namespace eManager.Web.Controllers
             var model = new CreateEmployeeViewModel();
             model.DepartmentId = departmentId;
             model.HireDate = DateTime.Today;
+            if (Request.IsAjaxRequest()) return PartialView("_CreatePartial", model);
             return View(model);
         }
 
@@ -37,8 +38,10 @@ namespace eManager.Web.Controllers
 
                 _db.Save();
 
+                if (Request.IsAjaxRequest()) return Json(JsonResponseFactory.SuccessResponse(), JsonRequestBehavior.DenyGet);
                 return RedirectToAction("detail", "department", new { id = viewModel.DepartmentId });
             }
+            if (Request.IsAjaxRequest()) return Json(JsonResponseFactory.ErrorResponse("Please review your form."), JsonRequestBehavior.DenyGet);
             return View(viewModel);
         }
 
@@ -46,6 +49,7 @@ namespace eManager.Web.Controllers
         public ActionResult Detail(int id)
         {
             var Employee = _db.Employees.Single(e => e.Id == id);
+            if (Request.IsAjaxRequest()) return PartialView("_DetailPartial", Employee);
             return View(Employee);
         }
 

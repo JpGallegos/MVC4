@@ -1,12 +1,11 @@
-﻿@model eManager.Web.Models.EditEmployeeViewModel
-
+﻿@model eManager.Domain.Employee
 
 <div class="modal-content">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title" id="myModalLabel">@Model.Name</h4>
     </div>
-   @using (Html.BeginForm("Edit", "Employee", FormMethod.Post, new { @id = "employee-edit-form"}))
+   @using (Html.BeginForm("Create", "Employee", FormMethod.Post, new { @id = "employee-create-form"}))
    { 
         @Html.AntiForgeryToken()
         <div class="modal-body">
@@ -20,7 +19,7 @@
                 </div>
                     @Html.LabelFor(model => model.HireDate, new { @Class = "control-label" })
                 <div class="controls">
-                    @Html.DisplayFor(model => model.HireDate, new { @class = "datepicker help-inline" })
+                    @Html.EditorFor(model => model.HireDate, new { @class = "datepicker help-inline" })
                     @Html.ValidationMessageFor(model => model.HireDate)
                 </div>
             </fieldset>
@@ -31,13 +30,15 @@
         <button type="submit" class="btn btn-primary" id="SaveBtn">Save Changes</button>
      </div>
    }
-
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script>
         $(document).ready(function () {
-            $.validator.unobtrusive.parse('#employee-edit-form');
+            $.validator.unobtrusive.parse('#employee-create-form');
 
-            $("#employee-edit-form").submit(function (e) {
-                if ($("#employee-edit-form").valid()) {
+            $("#employee-create-form").submit(function (e) {
+                if ($("#employee-create-form").valid()) {
                     $.ajax({
                         url: this.action,
                         type: this.method,
@@ -45,7 +46,7 @@
                         success: function (result) {
                             if (result.Success) {
                                 $("#employee-modal").modal('hide');
-                                Bootstrap_alert.showAlert("<strong>Success!</strong> The employee was edited.", "alert-success", "#form-update", 5000);
+                                Bootstrap_alert.showAlert("<strong>Success!</strong> The employee was created.", "alert-success", "#form-update", 5000);
                             } 
                         }
                     });
@@ -56,8 +57,8 @@
             });
         });
 
-        $("#employee-edit-form").focusout(function () {     
-            $('#employee-edit-form').valid();
+        $("#employee-create-form").focusout(function () {     
+            $('#employee-create-form').valid();
         });
     </script>
 

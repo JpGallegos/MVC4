@@ -34,17 +34,10 @@
     <script>
         $(document).ready(function () {
             $.validator.unobtrusive.parse('#employee-edit-form');
-            //$('#employee-edit-form').focusout(function () {
-            //    $("#employee-edit-form").validate();
-            //});
         });
 
-        
-        $("#employee-edit-form").focusout(function () {
-            $("#employee-edit-form").validate({
-                debug: true,
-                success: "valid"
-            });
+        $("#employee-edit-form").focusout(function () {     
+            $('#employee-edit-form').valid();
         });
     </script>
 

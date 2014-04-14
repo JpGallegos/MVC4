@@ -1,0 +1,34 @@
+﻿@model eManager.Domain.Department
+@using GridMvc.Html
+
+@Html.Grid(Model.Employees).Named("departmentDetailGrid").Columns(columns =>
+                {
+                    columns.Add(c => c.Id, true);
+                
+                    columns.Add(c => c.Name)
+                        .Titled("Name")
+                        .RenderValueAs(c => @c.Name);
+
+                    columns.Add(c => c.HireDate)
+                        .Titled("Date Hired")
+                        .Format("{0:yyyy-MM-dd}")
+                        .Filterable(true);
+
+                    columns.Add()
+                        .Sanitized(false)
+                        .Encoded(false)
+                        .RenderValueAs(c => 
+                            @<a class="btn btn-primary btn-xs edit-employee" data-id="@c.Id" rel="tooltip" title="Edit employee">
+                                    <span class="glyphicon glyphicon-pencil" />
+                            </a>);
+                
+                }).WithPaging(3).Sortable(true)
+
+<script>
+    $(document).ready(function () {
+        $('.edit-employee').click(function () {
+            openModal(this, "#employee-modal", "#employee-modal-container", "Employee", "Edit");
+
+        }); // $('.edit-employee').click() end
+    }); // $(document).ready()
+</script>

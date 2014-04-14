@@ -18,5 +18,10 @@ namespace eManager.Web.Controllers
             return View(model);
         }
 
+        public PartialViewResult GridRender(int id)
+        {
+            var model = _db.Departments.Single(d => d.Id == id);
+            return PartialView("_DepartmentGrid", model);
+        }
     }
 }

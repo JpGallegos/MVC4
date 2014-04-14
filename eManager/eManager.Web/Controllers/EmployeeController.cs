@@ -16,10 +16,10 @@ namespace eManager.Web.Controllers
 
         [HttpGet]
         [Authorize(Roles="Admin")]
-        public ActionResult Create(int departmentId)
+        public ActionResult Create(int id)
         {
             var model = new CreateEmployeeViewModel();
-            model.DepartmentId = departmentId;
+            model.DepartmentId = id;
             model.HireDate = DateTime.Today;
             if (Request.IsAjaxRequest()) return PartialView("_CreatePartial", model);
             return View(model);
@@ -61,6 +61,7 @@ namespace eManager.Web.Controllers
             
             var EmployeeEdit = new EditEmployeeViewModel();
             EmployeeEdit.Id = Employee.Id;
+            EmployeeEdit.DepartmentId = Employee.Department.Id;
             EmployeeEdit.Name = Employee.Name;
             EmployeeEdit.HireDate = Employee.HireDate;
             return PartialView("_EditEmployeePartial", EmployeeEdit);

@@ -13,6 +13,7 @@
             <div id="edit-fail"></div>
             <fieldset>
                 <legend>@Model</legend>
+                @Html.HiddenFor(model => model.DepartmentId, new { data_id = Model.DepartmentId})
                 @Html.LabelFor(model => model.Name, new { @Class = "control-label" })
                 <div class="controls">
                     @Html.EditorFor(model => model.Name)
@@ -36,6 +37,8 @@
         $(document).ready(function () {
             $.validator.unobtrusive.parse('#employee-edit-form');
 
+            var DeptId = $("#DepartmentId").attr('data-id');
+
             $("#employee-edit-form").submit(function (e) {
                 if ($("#employee-edit-form").valid()) {
                     $.ajax({
@@ -46,6 +49,7 @@
                             if (result.Success) {
                                 $("#employee-modal").modal('hide');
                                 Bootstrap_alert.showAlert("<strong>Success!</strong> The employee was edited.", "alert-success", "#form-update", 5000);
+                                $("#grid-container").load('@Url.Action("GridRender", "Department")' + '/' + DeptId);
                             } 
                         }
                     });

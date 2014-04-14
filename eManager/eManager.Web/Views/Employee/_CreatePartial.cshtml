@@ -1,4 +1,4 @@
-﻿@model eManager.Domain.Employee
+﻿@model eManager.Web.Models.CreateEmployeeViewModel
 
 <div class="modal-content">
     <div class="modal-header">
@@ -12,6 +12,7 @@
             <div id="edit-fail"></div>
             <fieldset>
                 <legend>@Model</legend>
+                @Html.HiddenFor(model => model.DepartmentId)
                 @Html.LabelFor(model => model.Name, new { @Class = "control-label" })
                 <div class="controls">
                     @Html.EditorFor(model => model.Name)
@@ -30,12 +31,13 @@
         <button type="submit" class="btn btn-primary" id="SaveBtn">Save Changes</button>
      </div>
    }
-    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    @*<script src="~/Scripts/jquery-2.1.0.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
     <script>
         $(document).ready(function () {
             $.validator.unobtrusive.parse('#employee-create-form');
+            $("#employee-create-form").valid();
 
             $("#employee-create-form").submit(function (e) {
                 if ($("#employee-create-form").valid()) {

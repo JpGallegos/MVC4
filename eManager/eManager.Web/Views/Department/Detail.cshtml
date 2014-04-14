@@ -1,5 +1,4 @@
 ﻿@model eManager.Domain.Department
-@using GridMvc.Html
 
 @{
     ViewBag.Title = "Detail";
@@ -36,28 +35,9 @@
             </div>
         </div>
         <div class="col-md-9 col-md-pull-3">
-        @Html.Grid(Model.Employees).Named("departmentDetailGrid").Columns(columns =>
-                {
-                    columns.Add(c => c.Id, true);
-                
-                    columns.Add(c => c.Name)
-                        .Titled("Name")
-                        .RenderValueAs(c => @c.Name);
-
-                    columns.Add(c => c.HireDate)
-                        .Titled("Date Hired")
-                        .Format("{0:yyyy-MM-dd}")
-                        .Filterable(true);
-
-                    columns.Add()
-                        .Sanitized(false)
-                        .Encoded(false)
-                        .RenderValueAs(c => 
-                            @<a class="btn btn-primary btn-xs edit-employee" data-id="@c.Id" rel="tooltip" title="Edit employee">
-                                    <span class="glyphicon glyphicon-pencil" />
-                            </a>);
-                
-                }).WithPaging(3).Sortable(true)
+            <div id="grid-container">
+                @{Html.RenderAction("GridRender", Model.Id);}
+            </div>
         </div>
     </div>
 </div>
@@ -70,29 +50,24 @@
 <script>
     $(document).ready(function () {
         $("[rel=tooltip]").tooltip({ placement: 'bottom'});
-        $('.edit-employee').click(function () {
-            var id = $(this).attr('data-id');
-            $("#employee-modal-container").load("@Url.Action("Edit", "Employee")" + "/" + id);
-            $("#employee-modal").modal('show')
-        }); // $('.edit-employee').click() end
 
         $(".create-employee").click(function () {
-            openModal(this, "#employee-modal", "#employee-modal-container", "Employee", "Create");
-            @*$("#employee-modal-container").load("@Url.Action("Create", "Employee")");
-            $("#employee-modal").modal('show')*@
+            openModal(this, "#employee-modal", "#employee-modal-container", "Employee", "Create");   
         }); // $('.create-employee').click() end
     }); // $(document).ready() end
 
-    function openModal(caller, modalName, modalContainer, controller, action) {
-        var id = $(caller).attr('data-id');
-        $(modalContainer).load("@Url.Action(" + action +"," + controller + ")" + "/" + id);
-        $(modalName).modal('show')
-    }
     $(function () {
         pageGrids.departmentDetailGrid.onRowSelect(function (e) {
             $("#Employee-content").load("@Url.Action("Detail","Employee")" + "/" + e.row.Id);
         });
     });
+
+    function openModal(caller, modalName, modalContainer, controller, action) {
+        var id = $(caller).attr('data-id');
+        var url = '@Url.Action("-1", "-2")'.replace("-1", action).replace("-2", controller);
+        $(modalContainer).load(url + "/" + id);
+        $(modalName).modal('show');
+    }
 </script>
 
 

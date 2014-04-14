@@ -12,6 +12,9 @@ namespace eManager.Web.Models
         [HiddenInput(DisplayValue=false)]
         public int Id { get; set; }
 
+        [HiddenInput(DisplayValue = false)]
+        public int DepartmentId { get; set; }
+
         [Required(ErrorMessage="Name is required.")]
         [StringLength(50, ErrorMessage="Name is too long. Max. 50 characters.")]
         public string Name { get; set; }

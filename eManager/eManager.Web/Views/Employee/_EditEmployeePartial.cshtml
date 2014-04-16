@@ -33,6 +33,7 @@
      </div>
    }
 
+    <script src="~/Scripts/gridmvc.js"></script>
     <script>
         $(document).ready(function () {
             $.validator.unobtrusive.parse('#employee-edit-form');
@@ -49,7 +50,7 @@
                             if (result.Success) {
                                 $("#employee-modal").modal('hide');
                                 Bootstrap_alert.showAlert("<strong>Success!</strong> The employee was edited.", "alert-success", "#form-update", 5000);
-                                $("#grid-container").load('@Url.Action("GridRender", "Department")' + '/' + DeptId);
+                                $("DepartmentEmployees").data("kendoGrid").DataSource.read().refresh();
                             } 
                         }
                     });

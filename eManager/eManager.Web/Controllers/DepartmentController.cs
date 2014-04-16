@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using eManager.Domain;
 using eManager.Web.Infrastructure;
+using Kendo.Mvc.UI;
+using Kendo.Mvc.Extensions;
 
 namespace eManager.Web.Controllers
 {
@@ -18,10 +20,18 @@ namespace eManager.Web.Controllers
             return View(model);
         }
 
-        public PartialViewResult GridRender(int id)
-        {
-            var model = _db.Departments.Single(d => d.Id == id);
-            return PartialView("_DepartmentGrid", model);
+        public ActionResult Department_Read (int id, [DataSourceRequest] DataSourceRequest request) {
+            var  department = _db.Departments.Single(d => d.Id == id);
+            IQueryable<Employee> employees = department.Employees.AsQueryable();
+            // Deal with circular dependencies
+            employees = employees.Select(x => new Employee() { 
+                Id = x.Id,
+                Name = x.Name,
+                HireDate = x.HireDate,
+                Department = null
+            });
+            DataSourceResult result = QueryableExtensions.ToDataSourceResult(employees, request);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

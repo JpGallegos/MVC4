@@ -49,6 +49,9 @@
                             if (result.Success) {
                                 $("#employee-modal").modal('hide');
                                 Bootstrap_alert.showAlert("<strong>Success!</strong> The employee was created.", "alert-success", "#form-update", 5000);
+                                var grid = $("#DepartmentEmployees").data("kendoGrid");
+                                grid.dataSource.read();
+                                grid.refresh();
                             } 
                         }
                     });
